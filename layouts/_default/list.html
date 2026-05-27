@@ -1,0 +1,54 @@
+{{ define "main" }}
+<section class="pt-32 pb-24">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <!-- セクションヘッダー -->
+        <div class="text-center mb-20">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">{{ .Title }}</h1>
+            <div class="w-12 h-1 bg-indigo-600 mx-auto"></div>
+            {{ with .Description }}
+            <p class="text-gray-500 mt-6 text-lg">{{ . }}</p>
+            {{ end }}
+        </div>
+
+        {{ if .Pages }}
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {{ range .Pages }}
+            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                <a href="{{ .Permalink }}" class="block overflow-hidden">
+                    {{ if .Params.image }}
+                    <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    {{ else }}
+                    <img src="https://picsum.photos/seed/{{ .Title | urlize }}/600/400" alt="{{ .Title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    {{ end }}
+                </a>
+                <div class="p-6">
+                    {{ with .Params.tags }}
+                    <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">{{ index . 0 }}</span>
+                    {{ end }}
+                    <h3 class="text-xl font-bold mb-3 leading-tight">
+                        <a href="{{ .Permalink }}" class="hover:text-indigo-600 transition-colors">{{ .Title }}</a>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        {{ .Description | default (.Summary | plainify | truncate 80) }}
+                    </p>
+                    <div class="flex items-center text-gray-400 text-xs">
+                        <span>{{ .Date.Format "2006年1月2日" }}</span>
+                        {{ with .Params.author }}
+                        <span class="mx-2">•</span>
+                        <span>By {{ . }}</span>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+        {{ else }}
+        <div class="text-center py-20 text-gray-400">
+            <p class="text-lg">まだ記事がありません。</p>
+        </div>
+        {{ end }}
+
+    </div>
+</section>
+{{ end }}

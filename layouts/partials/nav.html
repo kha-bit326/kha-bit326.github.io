@@ -1,0 +1,23 @@
+<nav class="fixed w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <!-- ロゴ -->
+        <a href="/" class="text-2xl font-extrabold tracking-tighter">
+            <span class="text-indigo-600">{{ .Site.Title }}</span><span class="text-gray-900">.</span>
+        </a>
+
+        <!-- デスクトップメニュー -->
+        <div class="hidden md:flex space-x-10 font-medium text-sm text-gray-600 uppercase tracking-widest">
+            <a href="/" class="hover:text-indigo-600 transition-colors">Home</a>
+            <a href="/posts/" class="hover:text-indigo-600 transition-colors">Posts</a>
+            <a href="/tags/" class="hover:text-indigo-600 transition-colors">Tags</a>
+            <a href="/about/" class="hover:text-indigo-600 transition-colors">About</a>
+        </div>
+
+        <!-- CTAボタン -->
+        <div class="flex items-center">
+            <a href="/posts/" class="bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-200 transition-all active:scale-95">
+                記事一覧
+            </a>
+        </div>
+    </div>
+</nav>
