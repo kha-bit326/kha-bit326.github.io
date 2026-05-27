@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ブログホームページ - Gemini Code Assist</title>
+    <title>{{ .Site.Title }}</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
@@ -23,52 +23,49 @@
             <div class="text-2xl font-extrabold tracking-tighter text-indigo-600">
                 BLOG<span class="text-gray-900">FLOW.</span>
             </div>
-
-            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-10 font-medium text-sm text-gray-600 uppercase tracking-widest">
                 <a href="#home" class="hover:text-indigo-600 transition-colors">Home</a>
                 <a href="#recent-posts" class="hover:text-indigo-600 transition-colors">Posts</a>
-                <a href="#" class="hover:text-indigo-600 transition-colors">Categories</a>
                 <a href="#" class="hover:text-indigo-600 transition-colors">About</a>
-            </div>
-
-            <div class="flex items-center">
-                <button class="bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-200 transition-all active:scale-95">
-                    Subscribe
-                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section - Featured Post -->
+    <!-- Hero Section - 最新記事をフィーチャー -->
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ $latest := index $posts 0 }}
+    {{ if $latest }}
     <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <!-- Background Decoration -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
             <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
             <div class="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-blue-50 rounded-full blur-3xl opacity-50"></div>
         </div>
-
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div class="text-center md:text-left">
                 <div class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full">
                     注目の記事
                 </div>
                 <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
-                    最新のWebトレンドを<br>深掘りする
+                    {{ $latest.Title }}
                 </h1>
                 <p class="text-lg text-gray-500 mb-8 leading-relaxed">
-                    2026年のWebデザインと開発における主要なトレンドを徹底解説。あなたのプロジェクトに活かせるヒントが満載です。
+                    {{ $latest.Description | default $latest.Summary }}
                 </p>
-                <a href="#" class="bg-gray-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-gray-800 transition-all shadow-xl shadow-gray-200">
+                <a href="{{ $latest.RelPermalink }}" class="bg-gray-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-gray-800 transition-all shadow-xl shadow-gray-200">
                     記事を読む
                 </a>
             </div>
             <div class="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl">
-                <img src="https://picsum.photos/seed/web-trends/800/600" alt="Featured Article Image" class="w-full h-full object-cover">
+                {{ if $latest.Params.featured_image }}
+                <img src="{{ $latest.Params.featured_image }}" alt="{{ $latest.Title }}" class="w-full h-full object-cover">
+                {{ else }}
+                <img src="https://picsum.photos/seed/{{ $latest.File.ContentBaseName }}/800/600" alt="{{ $latest.Title }}" class="w-full h-full object-cover">
+                {{ end }}
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
         </div>
     </section>
+    {{ end }}
 
     <!-- Recent Blog Posts Section -->
     <section id="recent-posts" class="py-24 bg-white">
@@ -79,129 +76,31 @@
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <!-- Blog Post Card 1 -->
+                {{ range $posts }}
                 <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                    <a href="#" class="block">
-                        <img src="https://picsum.photos/seed/ai-future/600/400" alt="Blog Post Image" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <a href="{{ .RelPermalink }}" class="block overflow-hidden">
+                        {{ if .Params.featured_image }}
+                        <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        {{ else }}
+                        <img src="https://picsum.photos/seed/{{ .File.ContentBaseName }}/600/400" alt="{{ .Title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        {{ end }}
                     </a>
                     <div class="p-6">
-                        <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">テクノロジー</span>
+                        {{ with index .Params.tags 0 }}
+                        <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">{{ . }}</span>
+                        {{ end }}
                         <h3 class="text-xl font-bold mb-3 leading-tight">
-                            <a href="#" class="hover:text-indigo-600 transition-colors">AIが変える未来の働き方</a>
+                            <a href="{{ .RelPermalink }}" class="hover:text-indigo-600 transition-colors">{{ .Title }}</a>
                         </h3>
                         <p class="text-gray-600 text-sm mb-4">
-                            人工知能の進化が私たちの仕事にどのような影響を与えるのか、具体的な事例を交えて解説します。
+                            {{ .Description | default .Summary | truncate 80 }}
                         </p>
                         <div class="flex items-center text-gray-400 text-xs">
-                            <span>2026年5月25日</span>
-                            <span class="mx-2">•</span>
-                            <span>By John Doe</span>
+                            <span>{{ .Date.Format "2006年1月2日" }}</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- Blog Post Card 2 -->
-                <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                    <a href="#" class="block">
-                        <img src="https://picsum.photos/seed/design-principles/600/400" alt="Blog Post Image" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                    </a>
-                    <div class="p-6">
-                        <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">デザイン</span>
-                        <h3 class="text-xl font-bold mb-3 leading-tight">
-                            <a href="#" class="hover:text-indigo-600 transition-colors">ミニマリズムデザインの真髄</a>
-                        </h3>
-                        <p class="text-gray-600 text-sm mb-4">
-                            なぜミニマリズムが現代のWebデザインで重要なのか、その原則と実践方法を探ります。
-                        </p>
-                        <div class="flex items-center text-gray-400 text-xs">
-                            <span>2026年5月21日</span>
-                            <span class="mx-2">•</span>
-                            <span>By Jane Smith</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Blog Post Card 3 -->
-                <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                    <a href="#" class="block">
-                        <img src="https://picsum.photos/seed/coding-tips/600/400" alt="Blog Post Image" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                    </a>
-                    <div class="p-6">
-                        <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">開発</span>
-                        <h3 class="text-xl font-bold mb-3 leading-tight">
-                            <a href="#" class="hover:text-indigo-600 transition-colors">効率的なコーディング術10選</a>
-                        </h3>
-                        <p class="text-gray-600 text-sm mb-4">
-                            開発効率を劇的に向上させるための、実践的なコーディングテクニックとツールを紹介。
-                        </p>
-                        <div class="flex items-center text-gray-400 text-xs">
-                            <span>2026年5月17日</span>
-                            <span class="mx-2">•</span>
-                            <span>By Peter Jones</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Blog Post Card 4 -->
-                <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                    <a href="#" class="block">
-                        <img src="https://picsum.photos/seed/seo-guide/600/400" alt="Blog Post Image" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                    </a>
-                    <div class="p-6">
-                        <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">マーケティング</span>
-                        <h3 class="text-xl font-bold mb-3 leading-tight">
-                            <a href="#" class="hover:text-indigo-600 transition-colors">2026年版SEO完全ガイド</a>
-                        </h3>
-                        <p class="text-gray-600 text-sm mb-4">
-                            検索エンジン最適化の最新トレンドと、あなたのサイトを上位表示させるための戦略。
-                        </p>
-                        <div class="flex items-center text-gray-400 text-xs">
-                            <span>2026年5月12日</span>
-                            <span class="mx-2">•</span>
-                            <span>By Alice Brown</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Blog Post Card 5 -->
-                <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                    <a href="#" class="block">
-                        <img src="https://picsum.photos/seed/cloud-computing/600/400" alt="Blog Post Image" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                    </a>
-                    <div class="p-6">
-                        <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">クラウド</span>
-                        <h3 class="text-xl font-bold mb-3 leading-tight">
-                            <a href="#" class="hover:text-indigo-600 transition-colors">クラウドコンピューティング入門</a>
-                        </h3>
-                        <p class="text-gray-600 text-sm mb-4">
-                            クラウドサービスの基本から、ビジネスでの活用事例までを分かりやすく解説。
-                        </p>
-                        <div class="flex items-center text-gray-400 text-xs">
-                            <span>2026年5月8日</span>
-                            <span class="mx-2">•</span>
-                            <span>By Bob White</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Blog Post Card 6 -->
-                <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                    <a href="/posts/hello-world/" class="block">
-                        <img src="https://picsum.photos/seed/hello-blog/600/400" alt="ブログを始めました" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                    </a>
-                    <div class="p-6">
-                        <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">日記</span>
-                        <h3 class="text-xl font-bold mb-3 leading-tight">
-                            <a href="/posts/hello-world/" class="hover:text-indigo-600 transition-colors">ブログを始めました</a>
-                        </h3>
-                        <p class="text-gray-600 text-sm mb-4">
-                            このブログについての最初の投稿です。思ったこと・学んだこと・試したことを気軽に書いていきます。
-                        </p>
-                        <div class="flex items-center text-gray-400 text-xs">
-                            <span>2026年5月3日</span>
-                        </div>
-                    </div>
-                </div>
+                {{ end }}
             </div>
         </div>
     </section>
@@ -213,12 +112,8 @@
                 <div class="text-2xl font-bold tracking-tighter">
                     BLOG<span class="text-indigo-400">FLOW.</span>
                 </div>
-                <div class="flex space-x-6 text-gray-400 text-sm">
-                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-                </div>
                 <div class="text-gray-500 text-sm">
-                    &copy; 2026 BLOGFLOW Inc. All rights reserved.
+                    &copy; {{ now.Year }} BLOGFLOW. All rights reserved.
                 </div>
             </div>
         </div>
