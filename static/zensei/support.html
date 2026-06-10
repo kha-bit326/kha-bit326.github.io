@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サポート — 前世診断</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif; background: #f5f5f7; color: #1d1d1f; line-height: 1.7; }
+    .container { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+    .hero { text-align: center; padding: 40px 0 32px; }
+    .app-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #8e44ad, #c39bd3); border-radius: 20px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+    h1 { font-size: 28px; font-weight: 700; }
+    .tagline { color: #6e6e73; font-size: 15px; margin-top: 6px; }
+    h2 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; border-left: 4px solid #8e44ad; padding-left: 12px; }
+    .card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+    .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .card p { font-size: 14px; color: #3a3a3c; }
+    .contact-btn { display: block; text-align: center; background: #8e44ad; color: #fff; padding: 14px; border-radius: 12px; font-size: 16px; font-weight: 600; text-decoration: none; margin-top: 24px; }
+    a { color: #8e44ad; text-decoration: none; }
+    .char-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+    .char-item { background: #f2e5ff; border-radius: 8px; padding: 8px; text-align: center; font-size: 13px; }
+    footer { margin-top: 48px; color: #6e6e73; font-size: 13px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="app-icon">🔮</div>
+      <h1>前世診断</h1>
+      <p class="tagline">時を超えた縁が、今ここで交わる</p>
+    </div>
+
+    <h2>使い方</h2>
+
+    <div class="card">
+      <h3>🔮 前世キャラクターを診断する</h3>
+      <p>アプリ起動後、生年月日・血液型・3つの質問に答えると、96種類の中からあなたの前世キャラクターが決まります。同じ入力からは常に同じキャラクターが決定されます。</p>
+    </div>
+
+    <div class="card">
+      <h3>📡 すれ違い検知について</h3>
+      <p>同じアプリを使用している人が近くにいると自動でBluetooth（BLE）を通じて検知します。お互いのスマートフォンのBluetoothをオンにしてアプリを起動した状態で数秒間近くにいると縁が生まれます。</p>
+    </div>
+
+    <div class="card">
+      <h3>💫 縁と共鳴度</h3>
+      <p>すれ違った相手との関係性・共鳴度（0〜100%）は、お互いのUUIDから決定論的に算出されるため、同じ2人が出会えば何度でも同じ縁が生まれます。共鳴度95%以上で金色の特別演出が表示されます。</p>
+    </div>
+
+    <div class="card">
+      <h3>📖 御縁帳（コレクション）</h3>
+      <p>出会った96種類のキャラクターを図鑑で確認できます。まだすれ違っていないキャラクターはシルエット表示になります。</p>
+    </div>
+
+    <h2>称号の取得条件</h2>
+
+    <div class="card">
+      <p style="font-size:14px; color:#3a3a3c; margin-bottom:12px;">すれ違い人数や共鳴度の実績に応じて称号が解放されます。</p>
+      <table style="width:100%; font-size:13px; border-collapse:collapse;">
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">魂の導き手</td><td style="color:#6e6e73;">全96キャラクターと出会う</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">深き共鳴</td><td style="color:#6e6e73;">71人以上 かつ 共鳴度95%以上（レア）</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">運命に愛されし者</td><td style="color:#6e6e73;">共鳴度80%以上を5回達成</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">縁を紡ぐ者</td><td style="color:#6e6e73;">70人と出会う</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">時を超えし者</td><td style="color:#6e6e73;">50人と出会う</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">縁結びの達人</td><td style="color:#6e6e73;">30人と出会う</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">縁結びの使者</td><td style="color:#6e6e73;">10人と出会う</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">縁の芽生え</td><td style="color:#6e6e73;">3人と出会う</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:6px 0; font-weight:600;">初めての縁</td><td style="color:#6e6e73;">1人と出会う</td></tr>
+        <tr><td style="padding:6px 0; font-weight:600;">縁なき衆生</td><td style="color:#6e6e73;">まだ誰とも出会っていない</td></tr>
+      </table>
+    </div>
+
+    <h2>よくある質問</h2>
+
+    <div class="card">
+      <h3>Q. すれ違い検知が動きません</h3>
+      <p>① iOSの設定でBluetoothがオンになっているか確認してください。② アプリが背景で動いている場合は一度フォアグラウンドに戻してください。③ 相手も同じアプリを起動している必要があります。</p>
+    </div>
+
+    <div class="card">
+      <h3>Q. データは相手に見られますか？</h3>
+      <p>Bluetooth通信で送受信されるのはアプリ固有のUUIDのみです。生年月日・血液型・名前などの個人情報は一切送受信されません。</p>
+    </div>
+
+    <div class="card">
+      <h3>Q. アプリを再インストールするとデータはどうなりますか？</h3>
+      <p>すれ違い履歴・コレクション・称号などのデータはすべてリセットされます。データはサーバーに保存されないため復元できませんのでご注意ください。</p>
+    </div>
+
+    <div class="card">
+      <h3>Q. 同じ人と再会したらどうなりますか？</h3>
+      <p>同じ2人の縁・共鳴度・関係性は決定論的に決まるため、何度出会っても同じ内容になります。</p>
+    </div>
+
+    <h2>お問い合わせ</h2>
+    <p style="font-size:14px; color:#3a3a3c; margin-bottom:16px;">ご不明な点はメールにてお気軽にお問い合わせください。通常2〜3営業日以内にご返答いたします。</p>
+    <a href="mailto:khamada.wacha@gmail.com" class="contact-btn">メールでお問い合わせ</a>
+
+    <footer>
+      <p style="margin-top:32px;"><a href="privacy.html">プライバシーポリシー</a></p>
+      <p style="margin-top:8px;">&copy; 2026 Hamada Katsumasa. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>

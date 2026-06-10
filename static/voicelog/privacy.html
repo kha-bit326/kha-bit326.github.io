@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プライバシーポリシー — VoiceLog</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif; background: #f5f5f7; color: #1d1d1f; line-height: 1.7; }
+    .container { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .subtitle { color: #6e6e73; font-size: 14px; margin-bottom: 40px; }
+    h2 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; border-left: 4px solid #007aff; padding-left: 12px; }
+    p { margin-bottom: 12px; font-size: 15px; }
+    ul { margin: 8px 0 12px 20px; font-size: 15px; }
+    li { margin-bottom: 6px; }
+    .card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+    .tag { display: inline-block; background: #e8f0fe; color: #1a73e8; font-size: 12px; padding: 2px 8px; border-radius: 20px; margin-right: 4px; }
+    .tag.green { background: #e6f4ea; color: #137333; }
+    .tag.orange { background: #fef3e2; color: #b5580a; }
+    a { color: #007aff; text-decoration: none; }
+    footer { margin-top: 48px; color: #6e6e73; font-size: 13px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>プライバシーポリシー</h1>
+    <p class="subtitle">VoiceLog &nbsp;|&nbsp; 最終更新: 2026年6月</p>
+
+    <p>VoiceLog（以下「本アプリ」）は、ユーザーのプライバシーを最大限に尊重します。本ポリシーでは、本アプリが収集・利用する情報について説明します。</p>
+
+    <h2>1. 収集する情報</h2>
+
+    <div class="card">
+      <p><strong>声の録音データ</strong> <span class="tag green">端末内のみ</span></p>
+      <p>録音した音声は端末上で音響分析（音量・ピッチ・リズムなど）のみに使用し、音声ファイル自体はサーバーに送信しません。</p>
+    </div>
+
+    <div class="card">
+      <p><strong>体調スコア</strong> <span class="tag orange">一部送信</span></p>
+      <p>AI健康コメントを生成するため、数値スコアのみを当社のサーバー（Vercel）に送信します。氏名・音声データ・個人を特定できる情報は一切送信しません。</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Apple HealthKitデータ</strong> <span class="tag green">端末内のみ</span></p>
+      <p>歩数・心拍数・睡眠時間を読み取り専用で取得します。これらのデータは端末内でのみ使用し、外部サーバーに送信しません。</p>
+    </div>
+
+    <div class="card">
+      <p><strong>アプリ設定</strong> <span class="tag green">端末内のみ</span></p>
+      <p>通知設定・リマインダー時刻などの設定情報は端末内にのみ保存されます。</p>
+    </div>
+
+    <h2>2. 情報の利用目的</h2>
+    <ul>
+      <li>体調スコアの算出および表示</li>
+      <li>AIによる健康コメントの生成</li>
+      <li>週次・月次レポートの作成</li>
+      <li>毎朝の体調チェックリマインダーの送信</li>
+    </ul>
+
+    <h2>3. 第三者への提供</h2>
+    <p>当社は以下のサービスを利用します。</p>
+    <ul>
+      <li><strong>Vercel / Anthropic（Claude API）</strong>: AIコメント生成のため、数値スコアのみ送信します。</li>
+      <li><strong>Apple（StoreKit）</strong>: サブスクリプションの購入・管理はAppleが行います。</li>
+    </ul>
+    <p>上記以外に、個人情報を第三者に販売・提供することはありません。</p>
+
+    <h2>4. データの保存</h2>
+    <p>すべての記録データ（スコア履歴・気分・AIコメント）はiOS端末内のCore Dataに保存されます。iCloudバックアップを有効にしている場合は、Appleのバックアップ対象になる場合があります。</p>
+
+    <h2>5. お子様のプライバシー</h2>
+    <p>本アプリは13歳未満を対象としておらず、意図的に13歳未満のユーザーから情報を収集することはありません。</p>
+
+    <h2>6. ポリシーの変更</h2>
+    <p>本ポリシーは必要に応じて改定することがあります。重要な変更がある場合はアプリ内またはサポートページでお知らせします。</p>
+
+    <h2>7. お問い合わせ</h2>
+    <p>プライバシーに関するご質問は以下までご連絡ください。</p>
+    <p><a href="mailto:khamada.wacha@gmail.com">khamada.wacha@gmail.com</a></p>
+
+    <footer>
+      <p>&copy; 2026 Hamada Katsumasa. All rights reserved.</p>
+      <p style="margin-top:8px;"><a href="support.html">サポートページ</a></p>
+    </footer>
+  </div>
+</body>
+</html>
