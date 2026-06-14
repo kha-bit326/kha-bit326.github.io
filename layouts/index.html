@@ -1,144 +1,77 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ .Site.Title }}</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            scroll-behavior: smooth;
-        }
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-900 antialiased">
+{{ define "main" }}
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
 
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="text-2xl font-extrabold tracking-tighter text-indigo-600">
-                BLOG<span class="text-gray-900">FLOW.</span>
-            </div>
-            <div class="hidden md:flex space-x-10 font-medium text-sm text-gray-600 uppercase tracking-widest">
-                <a href="#home" class="hover:text-indigo-600 transition-colors">Home</a>
-                <a href="#recent-posts" class="hover:text-indigo-600 transition-colors">Posts</a>
-                <a href="#" class="hover:text-indigo-600 transition-colors">About</a>
-            </div>
+<!-- Hero -->
+<section class="pt-28 pb-16 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+        <p class="text-4xl mb-4">🌿</p>
+        <h1 class="text-2xl font-medium mb-4" style="color:#3d3530; letter-spacing:0.02em;">
+            {{ .Site.Title }}
+        </h1>
+        <p class="text-sm leading-relaxed mb-3" style="color:#8a7d74;">
+            32歳OL。小さな習慣を積み重ねて人生を立て直した記録。<br>
+            早起き600日超・月3冊読書・体重-8kg達成。
+        </p>
+        <p class="text-xs italic mb-6" style="color:#a89c94;">
+            Hi, I'm Nao 🇯🇵 — sharing daily habits & positive words.<br>
+            Follow me on <a href="https://www.instagram.com/v_true50" target="_blank" style="color:#7a9e7e; text-decoration:underline;">Instagram</a> for daily EN quotes ✨
+        </p>
+        <div class="flex justify-center gap-3">
+            <a href="https://x.com/v_true50" target="_blank"
+               class="px-5 py-2 rounded-full text-sm font-medium border transition-all"
+               style="border-color:#e0d8cf; color:#8a7d74; background:#fff;">
+                X をフォロー
+            </a>
+            <a href="https://www.instagram.com/v_true50" target="_blank"
+               class="px-5 py-2 rounded-full text-sm font-medium text-white transition-all"
+               style="background:#7a9e7e;">
+                Instagram
+            </a>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <!-- Hero Section - 最新記事をフィーチャー -->
-    {{ $posts := where .Site.RegularPages "Section" "posts" }}
-    {{ $latest := index $posts 0 }}
-    {{ if $latest }}
-    <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
-            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
-            <div class="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-blue-50 rounded-full blur-3xl opacity-50"></div>
-        </div>
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div class="text-center md:text-left">
-                <div class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full">
-                    注目の記事
-                </div>
-                <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
-                    {{ $latest.Title }}
-                </h1>
-                <p class="text-lg text-gray-500 mb-8 leading-relaxed">
-                    {{ $latest.Description | default $latest.Summary }}
-                </p>
-                <a href="{{ $latest.RelPermalink }}" class="bg-gray-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-gray-800 transition-all shadow-xl shadow-gray-200">
-                    記事を読む
+<!-- 区切り線 -->
+<div class="max-w-2xl mx-auto px-6">
+    <hr style="border-color:#e0d8cf;">
+</div>
+
+<!-- 最新記事 -->
+<section class="py-12 px-6">
+    <div class="max-w-2xl mx-auto">
+        <h2 class="text-sm font-medium uppercase tracking-widest mb-8" style="color:#7a9e7e;">最新の記事</h2>
+        <div class="space-y-6">
+            {{ range $posts }}
+            <article class="rounded-2xl overflow-hidden transition-all hover:shadow-md"
+                     style="background:#fff; border:1px solid #e0d8cf;">
+                {{ if .Params.featured_image }}
+                <a href="{{ .RelPermalink }}" class="block">
+                    <img src="{{ .Params.featured_image }}" alt="{{ .Title }}"
+                         class="w-full h-44 object-cover">
                 </a>
-            </div>
-            <div class="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl">
-                {{ if $latest.Params.featured_image }}
-                <img src="{{ $latest.Params.featured_image }}" alt="{{ $latest.Title }}" class="w-full h-full object-cover">
-                {{ else }}
-                <img src="https://picsum.photos/seed/{{ $latest.File.ContentBaseName }}/800/600" alt="{{ $latest.Title }}" class="w-full h-full object-cover">
                 {{ end }}
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            </div>
+                <div class="p-5">
+                    {{ with index .Params.tags 0 }}
+                    <span class="text-xs px-2 py-0.5 rounded-full mr-2" style="background:rgba(122,158,126,0.12); color:#7a9e7e;">{{ . }}</span>
+                    {{ end }}
+                    <span class="text-xs" style="color:#a89c94;">{{ .Date.Format "2006.01.02" }}</span>
+                    <h3 class="mt-2 text-base font-medium leading-snug" style="color:#3d3530;">
+                        <a href="{{ .RelPermalink }}" class="hover:underline" style="text-decoration-color:#c4845a;">
+                            {{ .Title }}
+                        </a>
+                    </h3>
+                    <p class="mt-1 text-sm" style="color:#8a7d74; line-height:1.7;">
+                        {{ .Summary | truncate 80 }}
+                    </p>
+                </div>
+            </article>
+            {{ end }}
         </div>
-    </section>
-    {{ end }}
-
-    <!-- Recent Blog Posts Section -->
-    <section id="recent-posts" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">最新記事</h2>
-                <div class="w-12 h-1 bg-indigo-600 mx-auto"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {{ range $posts }}
-                <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                    <a href="{{ .RelPermalink }}" class="block overflow-hidden">
-                        {{ if .Params.featured_image }}
-                        <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                        {{ else }}
-                        <img src="https://picsum.photos/seed/{{ .File.ContentBaseName }}/600/400" alt="{{ .Title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                        {{ end }}
-                    </a>
-                    <div class="p-6">
-                        {{ with index .Params.tags 0 }}
-                        <span class="text-xs font-semibold text-indigo-600 uppercase mb-2 block">{{ . }}</span>
-                        {{ end }}
-                        <h3 class="text-xl font-bold mb-3 leading-tight">
-                            <a href="{{ .RelPermalink }}" class="hover:text-indigo-600 transition-colors">{{ .Title }}</a>
-                        </h3>
-                        <p class="text-gray-600 text-sm mb-4">
-                            {{ .Description | default .Summary | truncate 80 }}
-                        </p>
-                        <div class="flex items-center text-gray-400 text-xs">
-                            <span>{{ .Date.Format "2006年1月2日" }}</span>
-                        </div>
-                    </div>
-                </div>
-                {{ end }}
-            </div>
+        <div class="mt-10 text-center">
+            <a href="/posts/" class="text-sm underline" style="color:#7a9e7e; text-underline-offset:4px;">
+                すべての記事を見る →
+            </a>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-16">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="text-2xl font-bold tracking-tighter">
-                    BLOG<span class="text-indigo-400">FLOW.</span>
-                </div>
-
-                <!-- SNS Links -->
-                <div class="flex items-center gap-5">
-                    <!-- X (Twitter) -->
-                    <a href="https://x.com/VictoryTrue50" target="_blank" rel="noopener noreferrer"
-                       class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200"
-                       aria-label="X (Twitter)">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-white" viewBox="0 0 24 24">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                    </a>
-                    <!-- Instagram -->
-                    <a href="https://www.instagram.com/v_true50/" target="_blank" rel="noopener noreferrer"
-                       class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200"
-                       aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-white" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="text-gray-500 text-sm">
-                    &copy; {{ now.Year }} BLOGFLOW. All rights reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+    </div>
+</section>
+{{ end }}

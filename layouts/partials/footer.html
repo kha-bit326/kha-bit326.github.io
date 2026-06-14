@@ -1,20 +1,12 @@
-<footer class="bg-gray-900 text-white py-16">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-            <!-- ロゴ -->
-            <div class="text-2xl font-bold tracking-tighter">
-                {{ .Site.Title }}<span class="text-indigo-400">.</span>
-            </div>
-            <!-- リンク -->
-            <div class="flex space-x-6 text-gray-400 text-sm">
-                <a href="/about/" class="hover:text-white transition-colors">About</a>
-                <a href="/tags/" class="hover:text-white transition-colors">Tags</a>
-                <a href="/index.xml" class="hover:text-white transition-colors">RSS</a>
-            </div>
-            <!-- コピーライト -->
-            <div class="text-gray-500 text-sm">
-                &copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.
-            </div>
+<footer class="mt-20 py-10 px-6" style="background:#f3ede4; border-top:1px solid #e0d8cf;">
+    <div class="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm font-medium" style="color:#7a9e7e;">🌿 {{ .Site.Title }}</p>
+        <div class="flex gap-5 text-sm" style="color:#8a7d74;">
+            <a href="/about/" class="hover:underline">About</a>
+            <a href="/apps/" class="hover:underline">アプリ</a>
+            <a href="https://x.com/v_true50" target="_blank" class="hover:underline">X</a>
+            <a href="https://www.instagram.com/v_true50" target="_blank" class="hover:underline">Instagram</a>
         </div>
+        <p class="text-xs" style="color:#a89c94;">&copy; {{ now.Year }} なお</p>
     </div>
 </footer>

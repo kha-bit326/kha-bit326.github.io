@@ -1,23 +1,15 @@
-<nav class="fixed w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <!-- ロゴ -->
-        <a href="/" class="text-2xl font-extrabold tracking-tighter">
-            <span class="text-indigo-600">{{ .Site.Title }}</span><span class="text-gray-900">.</span>
+<nav class="fixed w-full z-50" style="background:rgba(250,247,242,0.9); backdrop-filter:blur(12px); border-bottom:1px solid #e0d8cf;">
+    <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="/" class="text-lg font-medium" style="color:#7a9e7e; letter-spacing:0.02em;">
+            🌿 {{ .Site.Title }}
         </a>
-
-        <!-- デスクトップメニュー -->
-        <div class="hidden md:flex space-x-10 font-medium text-sm text-gray-600 uppercase tracking-widest">
-            <a href="/" class="hover:text-indigo-600 transition-colors">Home</a>
-            <a href="/posts/" class="hover:text-indigo-600 transition-colors">Posts</a>
-            <a href="/tags/" class="hover:text-indigo-600 transition-colors">Tags</a>
-            <a href="/about/" class="hover:text-indigo-600 transition-colors">About</a>
-        </div>
-
-        <!-- CTAボタン -->
-        <div class="flex items-center">
-            <a href="/posts/" class="bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-200 transition-all active:scale-95">
-                記事一覧
-            </a>
+        <div class="flex items-center gap-6 text-sm font-normal" style="color:#8a7d74;">
+            <a href="/posts/" class="hover:text-[#7a9e7e] transition-colors">ブログ</a>
+            <a href="/apps/" class="hover:text-[#7a9e7e] transition-colors">アプリ</a>
+            <a href="/about/" class="hover:text-[#7a9e7e] transition-colors">About</a>
+            <a href="https://www.instagram.com/v_true50" target="_blank"
+               class="px-4 py-1.5 rounded-full text-white text-xs font-medium transition-all"
+               style="background:#7a9e7e;">Instagram</a>
         </div>
     </div>
 </nav>
