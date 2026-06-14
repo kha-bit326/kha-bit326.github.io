@@ -1,14 +1,59 @@
 baseURL = "https://kha-bit326.github.io/"
-locale = "ja"
-title = "My Blog"
-theme = "ananke"
+languageCode = "ja"
+title = "なおのある日の記録"
+theme = "PaperMod"
+paginate = 10
 
 [params]
-  description = "思考・学び・日々のアウトプット"
-  background_color_class = "bg-dark-blue"
-  recent_posts_number = 5
+  env = "production"
+  author = "なお"
+  description = "32歳OL｜習慣改善・朝活・読書・メンタル。小さな積み重ねで人生を立て直した記録。"
+  keywords = ["習慣改善", "朝活", "読書", "メンタル", "自己成長", "ライフハック"]
+
+  homeInfoParams.Title = "なおのある日の記録 🌿"
+  homeInfoParams.Content = "32歳OL。残業まみれで体調を崩したのをきっかけに、小さな習慣を積み重ねて3年。早起き600日超・月3冊読書・体重-8kg達成。完璧じゃなくていい、一緒に前に進もう。"
+
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowCodeCopyButtons = true
+  ShowToc = false
+  ShowShareButtons = false
+
+  cover.responsiveImages = false
+
+  [[params.socialIcons]]
+    name = "x"
+    url = "https://x.com/v_true50"
+
+  [[params.socialIcons]]
+    name = "instagram"
+    url = "https://www.instagram.com/v_true50"
+
+[menu]
+  [[menu.main]]
+    identifier = "blog"
+    name = "ブログ"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "apps"
+    name = "アプリ"
+    url = "/apps/"
+    weight = 20
+  [[menu.main]]
+    identifier = "about"
+    name = "なおについて"
+    url = "/about/"
+    weight = 30
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+  [markup.highlight]
+    noClasses = false
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
