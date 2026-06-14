@@ -1,15 +1,26 @@
-<nav class="fixed w-full z-50" style="background:rgba(250,247,242,0.9); backdrop-filter:blur(12px); border-bottom:1px solid #e0d8cf;">
-    <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="/" class="text-lg font-medium" style="color:#7a9e7e; letter-spacing:0.02em;">
-            🌿 {{ .Site.Title }}
+<nav class="fixed w-full z-50" style="background:rgba(250,247,242,0.95); backdrop-filter:blur(12px); border-bottom:1px solid #e0d8cf;">
+    <div class="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between gap-2">
+        <!-- ロゴ -->
+        <a href="/" class="flex-shrink-0 font-medium text-sm whitespace-nowrap" style="color:#7a9e7e; letter-spacing:0.02em;">
+            🌿 <span class="hidden sm:inline">{{ .Site.Title }}</span><span class="sm:hidden">なお</span>
         </a>
-        <div class="flex items-center gap-6 text-sm font-normal" style="color:#8a7d74;">
-            <a href="/posts/" class="hover:text-[#7a9e7e] transition-colors">ブログ</a>
-            <a href="/apps/" class="hover:text-[#7a9e7e] transition-colors">アプリ</a>
-            <a href="/about/" class="hover:text-[#7a9e7e] transition-colors">About</a>
-            <a href="https://www.instagram.com/v_true50" target="_blank"
-               class="px-4 py-1.5 rounded-full text-white text-xs font-medium transition-all"
-               style="background:#7a9e7e;">Instagram</a>
+        <!-- ナビゲーション -->
+        <div class="flex items-center gap-2 sm:gap-5 text-sm" style="color:#8a7d74;">
+            <a href="/posts/" class="hidden sm:block hover:text-[#7a9e7e] transition-colors whitespace-nowrap">ブログ</a>
+            <a href="/apps/"  class="hidden sm:block hover:text-[#7a9e7e] transition-colors whitespace-nowrap">アプリ</a>
+            <a href="/about/" class="hidden sm:block hover:text-[#7a9e7e] transition-colors whitespace-nowrap">About</a>
+            <a href="https://x.com/v_true50" target="_blank" rel="noopener"
+               class="px-3 py-1.5 rounded-full border text-xs font-medium transition-all whitespace-nowrap"
+               style="border-color:#d0c8bf; color:#8a7d74; background:#fff;">X</a>
+            <a href="https://www.instagram.com/v_true50" target="_blank" rel="noopener"
+               class="px-3 py-1.5 rounded-full text-white text-xs font-medium transition-all whitespace-nowrap"
+               style="background:#7a9e7e;">IG</a>
         </div>
+    </div>
+    <!-- モバイル用サブナビ -->
+    <div class="sm:hidden flex justify-around py-2 text-xs" style="color:#8a7d74; border-top:1px solid #e0d8cf; background:rgba(250,247,242,0.97);">
+        <a href="/posts/" class="px-3 py-1 hover:text-[#7a9e7e] transition-colors">ブログ</a>
+        <a href="/apps/"  class="px-3 py-1 hover:text-[#7a9e7e] transition-colors">アプリ</a>
+        <a href="/about/" class="px-3 py-1 hover:text-[#7a9e7e] transition-colors">About</a>
     </div>
 </nav>

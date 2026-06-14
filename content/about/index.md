@@ -2,12 +2,12 @@
 title: "なおについて / About Nao"
 layout: "single"
 url: "/about/"
-date: "2026-06-14"
+date: "2026-05-27"
 ---
 
 ## はじめまして、なおです 🌿
 
-32歳の会社員です。
+32歳です。
 
 20代後半、残業まみれの日々で体調を崩したのをきっかけに、「このままではいけない」と思い、小さな習慣を少しずつ積み重ね始めました。
 
@@ -33,7 +33,7 @@ date: "2026-06-14"
 
 ## Nice to meet you! I'm Nao 🌿
 
-I'm a 32-year-old working woman based in Japan.
+I'm Nao, 32 years old, based in Japan.
 
 In my late 20s, I burned out from overworking and realized I needed to change. So I started building small daily habits — one tiny step at a time.
 

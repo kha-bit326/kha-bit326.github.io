@@ -7,15 +7,15 @@ paginate = 10
 [params]
   env = "production"
   author = "なお"
-  description = "32歳OL｜習慣改善・朝活・読書・メンタル。小さな積み重ねで人生を立て直した記録。"
+  description = "習慣改善・朝活・読書・メンタル。小さな積み重ねで人生を立て直した記録。"
   keywords = ["習慣改善", "朝活", "読書", "メンタル", "自己成長", "ライフハック"]
 
   homeInfoParams.Title = "なおのある日の記録 🌿"
-  homeInfoParams.Content = """32歳OL。残業まみれで体調を崩したのをきっかけに、小さな習慣を積み重ねて3年。早起き600日超・月3冊読書・体重-8kg達成。完璧じゃなくていい、一緒に前に進もう。
+  homeInfoParams.Content = """残業まみれで体調を崩したのをきっかけに、小さな習慣を積み重ねて3年。早起き600日超・月3冊読書・体重-8kg達成。完璧じゃなくていい、一緒に前に進もう。
 
 ---
 
-*Hi, I'm Nao — a 32-year-old working woman from Japan 🇯🇵*
+*Hi, I'm Nao — from Japan 🇯🇵*
 *I share daily habits, morning routines, and small steps toward a better life.*
 *Follow me on Instagram for daily positive quotes in English ✨*"""
 
