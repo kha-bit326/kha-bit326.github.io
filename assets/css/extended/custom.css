@@ -1,0 +1,153 @@
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Lato:wght@300;400&display=swap');
+
+/* ── カラー変数（ウォームライフスタイル） ── */
+:root {
+  --warm-bg: #faf7f2;
+  --warm-surface: #f3ede4;
+  --warm-green: #7a9e7e;
+  --warm-green-light: #a8c5ac;
+  --warm-text: #3d3530;
+  --warm-muted: #8a7d74;
+  --warm-border: #e0d8cf;
+  --warm-accent: #c4845a;
+}
+
+/* ── ベース ── */
+body {
+  font-family: 'Noto Sans JP', 'Lato', sans-serif;
+  font-weight: 300;
+  background-color: var(--warm-bg) !important;
+  color: var(--warm-text) !important;
+}
+
+/* ── ヘッダー ── */
+.header {
+  background-color: var(--warm-bg) !important;
+  border-bottom: 1px solid var(--warm-border) !important;
+}
+
+.logo a,
+.logo span {
+  color: var(--warm-green) !important;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* ── ナビゲーション ── */
+.nav a {
+  color: var(--warm-muted) !important;
+  font-weight: 400;
+}
+
+.nav a:hover {
+  color: var(--warm-green) !important;
+}
+
+/* ── トップページ プロフィール欄 ── */
+.home-info {
+  background: linear-gradient(135deg, var(--warm-surface) 0%, var(--warm-bg) 100%) !important;
+  border: 1px solid var(--warm-border) !important;
+  border-radius: 16px !important;
+  padding: 2rem 2.5rem !important;
+  margin-bottom: 2.5rem !important;
+}
+
+.home-info .title {
+  color: var(--warm-green) !important;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+/* ── 記事カード ── */
+.post-entry {
+  background-color: #ffffff !important;
+  border: 1px solid var(--warm-border) !important;
+  border-radius: 12px !important;
+  padding: 1.4rem 1.6rem !important;
+  margin-bottom: 1rem !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.post-entry:hover {
+  box-shadow: 0 4px 20px rgba(122, 158, 126, 0.15) !important;
+  transform: translateY(-2px);
+}
+
+.post-entry .entry-header h2 {
+  color: var(--warm-text) !important;
+  font-weight: 500;
+}
+
+.post-entry .entry-content p {
+  color: var(--warm-muted) !important;
+}
+
+/* ── タグ・カテゴリ ── */
+.post-tags a,
+.post-meta a {
+  color: var(--warm-green) !important;
+  background-color: rgba(122, 158, 126, 0.1) !important;
+  border-radius: 20px !important;
+  padding: 2px 10px !important;
+  font-size: 0.8rem;
+}
+
+/* ── 記事ページ ── */
+.post-header .post-title {
+  color: var(--warm-text) !important;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.post-content h2,
+.post-content h3 {
+  color: var(--warm-green) !important;
+  font-weight: 500;
+  border-bottom: 2px solid var(--warm-border);
+  padding-bottom: 0.3rem;
+}
+
+.post-content a {
+  color: var(--warm-accent) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.post-content blockquote {
+  border-left: 4px solid var(--warm-green) !important;
+  background-color: var(--warm-surface) !important;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.2rem;
+}
+
+/* ── フッター ── */
+.footer {
+  border-top: 1px solid var(--warm-border) !important;
+  color: var(--warm-muted) !important;
+}
+
+/* ── SNSアイコン ── */
+.social-icons a {
+  color: var(--warm-green) !important;
+}
+
+.social-icons a:hover {
+  color: var(--warm-accent) !important;
+}
+
+/* ── ダークモード対応 ── */
+.dark body {
+  background-color: #2a2520 !important;
+  color: #e8e0d8 !important;
+}
+
+.dark .post-entry {
+  background-color: #332e28 !important;
+  border-color: #4a4038 !important;
+}
+
+.dark .home-info {
+  background: linear-gradient(135deg, #3a342d 0%, #2a2520 100%) !important;
+  border-color: #4a4038 !important;
+}
