@@ -2,6 +2,7 @@
 title: "アプリ"
 layout: "single"
 url: "/apps/"
+date: "2026-06-14"
 ---
 
 習慣改善と並行して、iPhoneアプリの開発も始めました。

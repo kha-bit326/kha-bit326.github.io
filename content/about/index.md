@@ -2,6 +2,7 @@
 title: "なおについて / About Nao"
 layout: "single"
 url: "/about/"
+date: "2026-06-14"
 ---
 
 ## はじめまして、なおです 🌿

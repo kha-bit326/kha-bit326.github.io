@@ -44,7 +44,12 @@
             {{ range $posts }}
             <article class="rounded-2xl overflow-hidden transition-all hover:shadow-md"
                      style="background:#fff; border:1px solid #e0d8cf;">
-                {{ if .Params.featured_image }}
+                {{ if .Params.video }}
+                <a href="{{ .RelPermalink }}" class="block">
+                    <video src="{{ .Params.video }}" autoplay muted loop playsinline
+                           class="w-full object-cover" style="height:176px; object-fit:cover;"></video>
+                </a>
+                {{ else if .Params.featured_image }}
                 <a href="{{ .RelPermalink }}" class="block">
                     <img src="{{ .Params.featured_image }}" alt="{{ .Title }}"
                          class="w-full h-44 object-cover">
