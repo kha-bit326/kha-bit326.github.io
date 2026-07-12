@@ -1,308 +1,195 @@
 <title>AR キャラクター</title>
 <style>
 :root {
-  --bg:        #0e0b1a;
-  --surface:   #1c1830;
-  --surface2:  #261f3e;
-  --pink:      #ff85b8;
-  --lavender:  #c4a8ff;
-  --mint:      #8df5d0;
-  --fg:        #f5f0ff;
-  --muted:     #7a6e99;
-  --glass:     rgba(255,255,255,0.07);
-  --glass-b:   rgba(255,255,255,0.13);
-  --shadow:    0 8px 32px rgba(0,0,0,0.55);
+  --bg:       #0e0b1a;
+  --surface:  #1c1830;
+  --pink:     #ff85b8;
+  --lavender: #c4a8ff;
+  --mint:     #8df5d0;
+  --fg:       #f5f0ff;
+  --muted:    #7a6e99;
+  --glass:    rgba(255,255,255,0.07);
+  --shadow:   0 8px 32px rgba(0,0,0,0.55);
 }
-
 @media (prefers-color-scheme: light) {
   :root {
-    --bg:       #f0ecfa;
-    --surface:  #ffffff;
-    --surface2: #e8e0f8;
-    --fg:       #1a1430;
-    --muted:    #7a6e99;
-    --glass:    rgba(255,255,255,0.6);
-    --glass-b:  rgba(255,255,255,0.85);
-    --shadow:   0 8px 32px rgba(100,80,180,0.18);
+    --bg:      #f0ecfa;
+    --surface: #ffffff;
+    --fg:      #1a1430;
+    --muted:   #7a6e99;
+    --glass:   rgba(255,255,255,0.6);
+    --shadow:  0 8px 32px rgba(100,80,180,0.18);
   }
 }
-:root[data-theme="dark"] {
-  --bg:        #0e0b1a;
-  --surface:   #1c1830;
-  --surface2:  #261f3e;
-  --fg:        #f5f0ff;
-  --muted:     #7a6e99;
-  --glass:     rgba(255,255,255,0.07);
-  --glass-b:   rgba(255,255,255,0.13);
-  --shadow:    0 8px 32px rgba(0,0,0,0.55);
-}
-:root[data-theme="light"] {
-  --bg:       #f0ecfa;
-  --surface:  #ffffff;
-  --surface2: #e8e0f8;
-  --fg:       #1a1430;
-  --muted:    #7a6e99;
-  --glass:    rgba(255,255,255,0.6);
-  --glass-b:  rgba(255,255,255,0.85);
-  --shadow:   0 8px 32px rgba(100,80,180,0.18);
-}
+:root[data-theme="dark"]  { --bg:#0e0b1a;--surface:#1c1830;--fg:#f5f0ff;--muted:#7a6e99;--glass:rgba(255,255,255,0.07);--shadow:0 8px 32px rgba(0,0,0,0.55); }
+:root[data-theme="light"] { --bg:#f0ecfa;--surface:#fff;--fg:#1a1430;--muted:#7a6e99;--glass:rgba(255,255,255,0.6);--shadow:0 8px 32px rgba(100,80,180,0.18); }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
 
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: 'Hiragino Maru Gothic ProN', 'Hiragino Maru Gothic Pro',
-               'BIZ UDPGothic', 'Noto Sans JP', -apple-system, sans-serif;
+  font-family: 'Hiragino Maru Gothic ProN','Hiragino Maru Gothic Pro',
+               'BIZ UDPGothic','Noto Sans JP',-apple-system,sans-serif;
   min-height: 100dvh;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
 
-/* ── Orb background ── */
-.orb-wrap {
-  position: fixed; inset: 0; pointer-events: none; overflow: hidden;
-  z-index: 0;
-}
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.28;
-  animation: drift 14s ease-in-out infinite alternate;
-}
-.orb-a {
-  width: 520px; height: 520px;
-  background: var(--pink);
-  top: -180px; left: -120px;
-  animation-delay: 0s;
-}
-.orb-b {
-  width: 400px; height: 400px;
-  background: var(--lavender);
-  bottom: -120px; right: -80px;
-  animation-delay: -5s;
-}
-.orb-c {
-  width: 280px; height: 280px;
-  background: var(--mint);
-  top: 40%; left: 55%;
-  animation-delay: -9s;
-  opacity: 0.14;
-}
-@keyframes drift {
-  from { transform: translate(0,0) scale(1); }
-  to   { transform: translate(30px, 40px) scale(1.12); }
-}
+/* Orbs */
+.orb-wrap { position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0; }
+.orb { position:absolute;border-radius:50%;filter:blur(80px);animation:drift 14s ease-in-out infinite alternate; }
+.orb-a { width:520px;height:520px;background:var(--pink);top:-180px;left:-120px;opacity:.25;animation-delay:0s; }
+.orb-b { width:400px;height:400px;background:var(--lavender);bottom:-120px;right:-80px;opacity:.22;animation-delay:-5s; }
+.orb-c { width:280px;height:280px;background:var(--mint);top:40%;left:55%;opacity:.12;animation-delay:-9s; }
+@keyframes drift { from{transform:translate(0,0) scale(1)} to{transform:translate(30px,40px) scale(1.12)} }
 
 /* ── Upload Screen ── */
 #upload-screen {
-  position: relative; z-index: 1;
-  min-height: 100dvh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 2rem 1.5rem;
-  gap: 1.6rem;
+  position:relative; z-index:1;
+  min-height:100dvh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:2rem 1.5rem; gap:1.5rem;
 }
 
-.logo-row {
-  display: flex; align-items: center; gap: 0.6rem;
-}
-.logo-icon {
-  font-size: 2.6rem; line-height: 1;
-  filter: drop-shadow(0 0 16px var(--pink));
-  animation: pulse-icon 3s ease-in-out infinite;
-}
-@keyframes pulse-icon {
-  0%,100% { filter: drop-shadow(0 0 12px var(--pink)); }
-  50%      { filter: drop-shadow(0 0 24px var(--lavender)); }
-}
+.logo-icon { font-size:2.8rem;line-height:1;filter:drop-shadow(0 0 16px var(--pink));animation:pulse-icon 3s ease-in-out infinite; }
+@keyframes pulse-icon { 0%,100%{filter:drop-shadow(0 0 10px var(--pink))} 50%{filter:drop-shadow(0 0 24px var(--lavender))} }
 
 h1 {
-  font-size: 1.65rem;
-  font-weight: 900;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
-  background: linear-gradient(130deg, var(--pink) 0%, var(--lavender) 55%, var(--mint) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-wrap: balance;
-  text-align: center;
+  font-size:1.7rem; font-weight:900; letter-spacing:-.01em; line-height:1.15;
+  background:linear-gradient(130deg, var(--pink) 0%, var(--lavender) 55%, var(--mint) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  text-wrap:balance; text-align:center;
 }
+.tagline { font-size:.85rem;color:var(--muted);text-align:center;line-height:1.7; }
 
-.tagline {
-  font-size: 0.82rem;
-  color: var(--muted);
-  text-align: center;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-}
-
-/* Drop zone card */
 .dz-card {
-  width: 100%; max-width: 340px;
-  background: var(--glass);
-  border: 1.5px dashed rgba(196,168,255,0.3);
-  border-radius: 24px;
-  padding: 2.2rem 1.75rem 2rem;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.22s, background 0.22s, transform 0.15s;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: var(--shadow);
+  width:100%; max-width:340px;
+  background:var(--glass);
+  border:1.5px dashed rgba(196,168,255,.35);
+  border-radius:24px; padding:2.2rem 1.75rem 2rem;
+  text-align:center; cursor:pointer;
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  box-shadow:var(--shadow);
+  transition:border-color .22s, background .22s, transform .15s;
 }
-.dz-card:hover, .dz-card.over {
-  border-color: var(--pink);
-  background: rgba(255,133,184,0.1);
-  transform: translateY(-2px);
-}
-.dz-card:active { transform: scale(0.98); }
-
-.dz-emoji { font-size: 3rem; display: block; margin-bottom: 0.8rem; line-height: 1; }
-.dz-text {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-bottom: 1.2rem;
-  line-height: 1.6;
-}
+.dz-card:hover,.dz-card.over { border-color:var(--pink);background:rgba(255,133,184,.1);transform:translateY(-2px); }
+.dz-card:active { transform:scale(.98); }
+.dz-emoji { font-size:3rem;display:block;margin-bottom:.75rem;line-height:1; }
+.dz-text  { font-size:.8rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6; }
 
 .btn-upload {
-  display: inline-flex; align-items: center; gap: 0.45rem;
-  background: linear-gradient(135deg, var(--pink), var(--lavender));
-  color: #fff;
-  border: none;
-  padding: 0.65rem 1.6rem;
-  border-radius: 50px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(255,133,184,0.4);
-  transition: opacity 0.15s, transform 0.1s, box-shadow 0.2s;
-  letter-spacing: 0.02em;
+  display:inline-flex; align-items:center; gap:.45rem;
+  background:linear-gradient(135deg, var(--pink), var(--lavender));
+  color:#fff; border:none;
+  padding:.75rem 2rem; border-radius:50px;
+  font-size:.95rem; font-weight:700; font-family:inherit;
+  cursor:pointer; letter-spacing:.02em;
+  box-shadow:0 4px 20px rgba(255,133,184,.4);
+  transition:opacity .15s, transform .1s, box-shadow .2s;
+  min-height:52px;
 }
-.btn-upload:hover { box-shadow: 0 6px 28px rgba(255,133,184,0.6); }
-.btn-upload:active { opacity: 0.85; transform: scale(0.96); }
+.btn-upload:hover { box-shadow:0 6px 28px rgba(255,133,184,.6); }
+.btn-upload:active { opacity:.85; transform:scale(.96); }
 
-/* Tips */
-.tips {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0.55rem;
-  width: 100%; max-width: 320px;
-}
+.tips { display:grid;grid-template-columns:1fr 1fr;gap:.55rem;width:100%;max-width:320px; }
 .tip {
-  background: var(--glass);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  padding: 0.6rem 0.8rem;
-  font-size: 0.73rem;
-  color: var(--muted);
-  line-height: 1.5;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background:var(--glass); border:1px solid rgba(255,255,255,.08);
+  border-radius:12px; padding:.65rem .85rem;
+  font-size:.75rem; color:var(--muted); line-height:1.5;
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
 }
-.tip strong { display: block; color: var(--fg); font-size: 0.75rem; margin-bottom: 0.15rem; }
+.tip strong { display:block;color:var(--fg);font-size:.76rem;margin-bottom:.15rem; }
 
 #err {
-  font-size: 0.82rem; color: #ff7070;
-  background: rgba(255,80,80,0.1);
-  border: 1px solid rgba(255,80,80,0.25);
-  border-radius: 10px; padding: 0.55rem 1rem;
-  display: none; max-width: 320px; text-align: center;
+  font-size:.82rem; color:#ff7070;
+  background:rgba(255,80,80,.1); border:1px solid rgba(255,80,80,.25);
+  border-radius:10px; padding:.55rem 1rem;
+  display:none; max-width:320px; text-align:center;
 }
 
 /* ── AR Screen ── */
-#ar-screen {
-  display: none;
-  position: fixed; inset: 0; z-index: 10;
-}
+#ar-screen { display:none;position:fixed;inset:0;z-index:10; }
 
-#canvas {
-  position: absolute; inset: 0;
-  touch-action: none;
-  cursor: crosshair;
-}
+#canvas { position:absolute;inset:0;touch-action:none;cursor:crosshair; }
 
-/* HUD top */
+/* Top HUD */
 #hud-top {
-  position: absolute;
-  top: max(env(safe-area-inset-top, 0px), 14px);
-  left: 0; right: 0;
-  display: flex; justify-content: space-between; align-items: flex-start;
-  padding: 0 14px;
-  pointer-events: none;
+  position:absolute;
+  top:max(env(safe-area-inset-top,0px),14px);
+  left:0; right:0;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0 14px; pointer-events:none;
 }
-
 .hud-pill {
-  background: rgba(14,11,26,0.58);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 50px;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.75rem;
-  color: rgba(245,240,255,0.85);
-  white-space: nowrap;
-  transition: opacity 0.5s;
+  background:rgba(14,11,26,.62);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.12); border-radius:50px;
+  padding:.4rem 1rem; font-size:.78rem;
+  color:rgba(245,240,255,.85); white-space:nowrap;
+  transition:opacity .5s;
 }
 .hud-badge {
-  background: rgba(14,11,26,0.58);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 50px;
-  padding: 0.35rem 0.9rem;
-  font-size: 0.75rem;
-  color: var(--lavender);
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
+  background:rgba(14,11,26,.62);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.12); border-radius:50px;
+  padding:.4rem 1rem; font-size:.78rem;
+  color:var(--lavender); font-weight:700; font-variant-numeric:tabular-nums;
 }
 
-/* HUD bottom */
+/* Bottom HUD */
 #hud-bottom {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 1.2rem 1rem max(env(safe-area-inset-bottom, 0px), 1.2rem);
-  background: linear-gradient(to top, rgba(14,11,26,0.72) 0%, transparent 100%);
-  display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
+  position:absolute; bottom:0; left:0; right:0;
+  padding:.75rem 1rem max(env(safe-area-inset-bottom,0px),1rem);
+  background:linear-gradient(to top, rgba(14,11,26,.78) 0%, transparent 100%);
+  display:grid; grid-template-columns:1fr auto 1fr;
+  align-items:center; gap:.5rem;
 }
+.hud-side { display:flex; flex-direction:column; gap:.5rem; }
+.hud-left  { align-items:flex-start; }
+.hud-right { align-items:flex-end; }
 
+/* Control buttons — larger touch targets */
 .ctrl {
-  background: rgba(14,11,26,0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 50px;
-  padding: 0.5rem 1.15rem;
-  font-size: 0.78rem;
-  font-family: inherit;
-  color: rgba(245,240,255,0.88);
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
-  white-space: nowrap;
+  background:rgba(14,11,26,.58);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.16); border-radius:50px;
+  padding:.65rem 1.3rem; font-size:.88rem; font-family:inherit;
+  color:rgba(245,240,255,.9); cursor:pointer; white-space:nowrap;
+  min-height:48px; min-width:80px; text-align:center;
+  transition:background .15s, border-color .15s, transform .1s;
 }
-.ctrl:active { transform: scale(0.94); background: rgba(255,255,255,0.12); }
-.ctrl.on {
-  border-color: var(--pink);
-  color: var(--pink);
-  background: rgba(255,133,184,0.14);
+.ctrl:active { transform:scale(.93); background:rgba(255,255,255,.12); }
+.ctrl.on { border-color:var(--pink); color:var(--pink); background:rgba(255,133,184,.16); }
+
+/* Shutter button */
+#shutter {
+  width:72px; height:72px; border-radius:50%;
+  background:#fff;
+  border:4px solid var(--pink);
+  box-shadow:0 0 0 3px rgba(255,133,184,.3), 0 6px 24px rgba(0,0,0,.45);
+  cursor:pointer; font-size:1.6rem; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .12s, box-shadow .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+#shutter:active {
+  transform:scale(.88);
+  box-shadow:0 0 0 6px rgba(255,133,184,.4), 0 2px 10px rgba(0,0,0,.4);
 }
 
-/* Cross-hair hint */
-#crosshair {
-  position: absolute;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s;
+/* Flash animation on capture */
+#flash {
+  position:absolute; inset:0;
+  background:#fff; opacity:0; pointer-events:none;
+  transition:opacity .08s;
 }
-#crosshair.visible { opacity: 1; }
+#flash.go { opacity:.85; }
 </style>
 
-<!-- Ambient orbs -->
-<div class="orb-wrap">
+<!-- Ambient orbs (upload screen only) -->
+<div class="orb-wrap" id="orb-wrap">
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
@@ -310,21 +197,16 @@ h1 {
 
 <!-- ── Upload Screen ── -->
 <div id="upload-screen">
-  <div class="logo-row">
-    <span class="logo-icon">🌸</span>
-    <h1>AR キャラクター</h1>
-  </div>
+  <span class="logo-icon">🌸</span>
+  <h1>AR キャラクター</h1>
   <p class="tagline">画像をアップロードして<br>カメラの世界にキャラを召喚しよう</p>
 
   <div class="dz-card" id="dz">
     <span class="dz-emoji">📷</span>
     <p class="dz-text">キャラクター画像をここにドロップ<br>または</p>
-    <button class="btn-upload" onclick="document.getElementById('fi').click()">
-      🖼️ 画像を選択
-    </button>
+    <button class="btn-upload" onclick="document.getElementById('fi').click()">🖼️ 画像を選択</button>
   </div>
   <input type="file" id="fi" accept="image/*" style="display:none">
-
   <p id="err"></p>
 
   <div class="tips">
@@ -338,93 +220,110 @@ h1 {
 <!-- ── AR Screen ── -->
 <div id="ar-screen">
   <canvas id="canvas"></canvas>
+  <div id="flash"></div>
 
+  <!-- Top HUD -->
   <div id="hud-top">
     <div class="hud-pill" id="hint">画面をタップして配置</div>
     <div class="hud-badge" id="count">0 体</div>
   </div>
 
-  <!-- SVG crosshair (tap indicator) -->
-  <svg id="crosshair" width="56" height="56" viewBox="0 0 56 56">
-    <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(255,133,184,0.8)" stroke-width="1.5"/>
-    <line x1="28" y1="8" x2="28" y2="20" stroke="rgba(255,133,184,0.8)" stroke-width="1.5"/>
-    <line x1="28" y1="36" x2="28" y2="48" stroke="rgba(255,133,184,0.8)" stroke-width="1.5"/>
-    <line x1="8" y1="28" x2="20" y2="28" stroke="rgba(255,133,184,0.8)" stroke-width="1.5"/>
-    <line x1="36" y1="28" x2="48" y2="28" stroke="rgba(255,133,184,0.8)" stroke-width="1.5"/>
-  </svg>
-
+  <!-- Bottom HUD -->
   <div id="hud-bottom">
-    <button class="ctrl on" id="blend-btn" onclick="toggleBlend()">✨ 背景除去 ON</button>
-    <button class="ctrl" onclick="clearAll()">🗑 全削除</button>
-    <button class="ctrl" onclick="goBack()">← 戻る</button>
+    <!-- Left -->
+    <div class="hud-side hud-left">
+      <button class="ctrl on" id="blend-btn" onclick="toggleBlend()">✨ 背景除去</button>
+      <button class="ctrl" onclick="clearAll()">🗑 全削除</button>
+    </div>
+
+    <!-- Center: Shutter -->
+    <button id="shutter" onclick="capture()" title="撮影">📸</button>
+
+    <!-- Right -->
+    <div class="hud-side hud-right">
+      <button class="ctrl" onclick="goBack()">← 戻る</button>
+    </div>
   </div>
 </div>
 
-<!-- Hidden video element for camera -->
 <video id="video" autoplay playsinline muted style="display:none"></video>
 
 <script>
 'use strict';
 
-// ── State ──────────────────────────────────────────────
+// ── State ──
 let img = null;
-let useScreen = true; // screen blend to remove black bg
+let processedImg = null; // black bg removed (offscreen canvas)
+let useProcessed = true; // true = pixel-processed, false = screen blend
 
 let canvas, ctx, video;
 let W = 0, H = 0, dpr = 1;
+let objs = [];  // { x, y, scale, born, bob }
+let ptrs = new Map();
+let drag = null, pinch = null, lastTap = null;
+let hintTimer = null, raf = null;
+let ripples = [];
 
-let objs = [];
-// obj: { x, y, scale, born, bob }
-
-let ptrs = new Map();   // pointerId → {x,y}
-let drag = null;        // { idx, ox, oy }
-let pinch = null;       // { idx, d0, s0, cx, cy }
-let lastTap = null;     // { time, x, y, idx }
-
-let hintTimer = null;
-let raf = null;
-
-// Ripple effects
-let ripples = []; // { x, y, born, duration }
-
-// ── Upload ─────────────────────────────────────────────
+// ── Upload ──
 const dz = document.getElementById('dz');
 const fi = document.getElementById('fi');
-const err = document.getElementById('err');
+const errEl = document.getElementById('err');
 
-fi.addEventListener('change', e => { const f = e.target.files[0]; if (f) load(f); });
-
-dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+fi.addEventListener('change', e => { const f = e.target.files[0]; if (f) loadFile(f); });
+dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('over'); });
 dz.addEventListener('dragleave', () => dz.classList.remove('over'));
 dz.addEventListener('drop', e => {
   e.preventDefault(); dz.classList.remove('over');
   const f = e.dataTransfer.files[0];
-  if (f && f.type.startsWith('image/')) load(f);
+  if (f && f.type.startsWith('image/')) loadFile(f);
 });
 
-function load(file) {
-  err.style.display = 'none';
+function loadFile(file) {
+  errEl.style.display = 'none';
   const reader = new FileReader();
   reader.onload = e => {
     const image = new Image();
-    image.onload = () => { img = image; startAR(); };
-    image.onerror = () => showErr('画像を読み込めませんでした。別のファイルをお試しください。');
+    image.onload = () => { img = image; processedImg = removeBlackBg(img); startAR(); };
+    image.onerror = () => showErr('画像を読み込めませんでした。');
     image.src = e.target.result;
   };
   reader.onerror = () => showErr('ファイルの読み込みに失敗しました。');
   reader.readAsDataURL(file);
 }
 
-function showErr(msg) {
-  err.textContent = msg;
-  err.style.display = 'block';
+function showErr(msg) { errEl.textContent = msg; errEl.style.display = 'block'; }
+
+// ── Black BG Removal ──
+function removeBlackBg(src) {
+  const oc = document.createElement('canvas');
+  oc.width  = src.naturalWidth  || src.width;
+  oc.height = src.naturalHeight || src.height;
+  const octx = oc.getContext('2d');
+  octx.drawImage(src, 0, 0);
+
+  const id = octx.getImageData(0, 0, oc.width, oc.height);
+  const d  = id.data;
+
+  for (let i = 0; i < d.length; i += 4) {
+    const maxC = Math.max(d[i], d[i+1], d[i+2]);
+    if (maxC < 14) {
+      // Pure black → fully transparent
+      d[i+3] = 0;
+    } else if (maxC < 40) {
+      // Near-black → smooth fade
+      d[i+3] = Math.round(((maxC - 14) / 26) * d[i+3]);
+    }
+  }
+
+  octx.putImageData(id, 0, 0);
+  return oc;
 }
 
-// ── AR Start ──────────────────────────────────────────
+// ── AR Start ──
 async function startAR() {
   document.getElementById('upload-screen').style.display = 'none';
-  const arScreen = document.getElementById('ar-screen');
-  arScreen.style.display = 'block';
+  document.getElementById('orb-wrap').style.display = 'none';
+  document.getElementById('ar-screen').style.display = 'block';
 
   canvas = document.getElementById('canvas');
   ctx    = canvas.getContext('2d');
@@ -437,7 +336,6 @@ async function startAR() {
     video.srcObject = stream;
     await video.play();
   } catch(e) {
-    // Camera unavailable; use dark gradient background
     console.warn('Camera:', e.message);
   }
 
@@ -446,18 +344,17 @@ async function startAR() {
 
   canvas.addEventListener('pointerdown', onDown, { passive: false });
   canvas.addEventListener('pointermove', onMove, { passive: false });
-  canvas.addEventListener('pointerup', onUp, { passive: false });
+  canvas.addEventListener('pointerup',   onUp,   { passive: false });
   canvas.addEventListener('pointercancel', onUp, { passive: false });
 
   raf = requestAnimationFrame(loop);
   setHint('画面をタップしてキャラを配置', 3500);
 }
 
-// ── Resize ────────────────────────────────────────────
+// ── Resize ──
 function onResize() {
   dpr = window.devicePixelRatio || 1;
-  W = window.innerWidth;
-  H = window.innerHeight;
+  W = window.innerWidth; H = window.innerHeight;
   canvas.width  = Math.round(W * dpr);
   canvas.height = Math.round(H * dpr);
   canvas.style.width  = W + 'px';
@@ -465,124 +362,95 @@ function onResize() {
   ctx.scale(dpr, dpr);
 }
 
-// ── Render ────────────────────────────────────────────
+// ── Render ──
 function loop(t) {
   draw(t);
   raf = requestAnimationFrame(loop);
 }
 
 function draw(t) {
-  // Background: camera or gradient
+  // Camera or fallback
   if (video && video.readyState >= 2 && video.videoWidth > 0) {
     drawCamera();
   } else {
-    // Fallback gradient
-    const grd = ctx.createLinearGradient(0, 0, W, H);
-    grd.addColorStop(0, '#1a1130');
-    grd.addColorStop(0.5, '#0e0b1a');
-    grd.addColorStop(1, '#1a1130');
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, W, H);
+    const g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#1a1130'); g.addColorStop(1, '#0e0b1a');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   }
 
   // Ripples
-  drawRipples(t);
+  ripples = ripples.filter(r => t - r.born < 600);
+  for (const r of ripples) {
+    const p = (t - r.born) / 600;
+    ctx.save();
+    ctx.strokeStyle = `rgba(255,133,184,${(1-p)*0.6})`;
+    ctx.lineWidth   = 2.5 * (1-p);
+    ctx.beginPath(); ctx.arc(r.x, r.y, p * 60, 0, Math.PI*2); ctx.stroke();
+    ctx.restore();
+  }
 
   // Characters
-  for (const obj of objs) drawObj(obj, t);
+  for (const o of objs) drawObj(o, t);
 
-  // Update HUD
   document.getElementById('count').textContent = objs.length + ' 体';
 }
 
 function drawCamera() {
   const vW = video.videoWidth, vH = video.videoHeight;
   if (!vW || !vH) return;
-  const scale = Math.max(W / vW, H / vH);
-  const sw = vW * scale, sh = vH * scale;
-  const ox = (W - sw) / 2, oy = (H - sh) / 2;
-  ctx.drawImage(video, ox, oy, sw, sh);
+  const sc = Math.max(W/vW, H/vH);
+  ctx.drawImage(video, (W - vW*sc)/2, (H - vH*sc)/2, vW*sc, vH*sc);
 }
 
-function drawObj(obj, t) {
-  const iW = img.naturalWidth  || img.width;
-  const iH = img.naturalHeight || img.height;
+function drawObj(o, t) {
+  const src = useProcessed ? processedImg : img;
+  const iW = src.width || src.naturalWidth;
+  const iH = src.height || src.naturalHeight;
 
-  const baseW = Math.min(W, H) * 0.42;
-  const dw = obj.scale * baseW;
+  const baseW = Math.min(W, H) * 0.45;
+  const dw = o.scale * baseW;
   const dh = (iH / iW) * dw;
 
-  // Birth animation (pop-in)
-  const age = t - obj.born;
-  let sc = 1;
-  if (age < 380) sc = easeOutBack(Math.min(age / 380, 1));
+  // Pop-in
+  const age = t - o.born;
+  const sc = age < 380 ? easeOutBack(Math.min(age/380, 1)) : 1;
 
   // Float bob
-  const bob = Math.sin(t * 0.0012 + obj.bob) * 5;
-
-  const dx = obj.x - dw / 2;
-  const dy = obj.y - dh / 2 + bob;
+  const bob = Math.sin(t * 0.0012 + o.bob) * 5;
 
   ctx.save();
 
   if (sc !== 1) {
-    ctx.translate(obj.x, obj.y + bob);
+    ctx.translate(o.x, o.y + bob);
     ctx.scale(sc, sc);
-    ctx.translate(-obj.x, -(obj.y + bob));
+    ctx.translate(-o.x, -(o.y + bob));
   }
 
-  if (useScreen) {
+  if (!useProcessed) {
+    // Screen blend removes black on the fly
     ctx.globalCompositeOperation = 'screen';
-  } else {
-    // Soft shadow in normal mode
-    ctx.shadowColor = 'rgba(0,0,0,0.45)';
-    ctx.shadowBlur = 22;
-    ctx.shadowOffsetY = 10;
   }
 
-  ctx.drawImage(img, dx, dy, dw, dh);
+  ctx.drawImage(src, o.x - dw/2, o.y - dh/2 + bob, dw, dh);
   ctx.restore();
 }
 
-// Ripple on placement
-function drawRipples(t) {
-  ripples = ripples.filter(r => t - r.born < r.dur);
-  for (const r of ripples) {
-    const p = (t - r.born) / r.dur;
-    const rad = p * 55;
-    const alpha = (1 - p) * 0.55;
-    ctx.save();
-    ctx.strokeStyle = `rgba(255,133,184,${alpha})`;
-    ctx.lineWidth = 2 * (1 - p);
-    ctx.beginPath();
-    ctx.arc(r.x, r.y, rad, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
-  }
-}
-
 function easeOutBack(t) {
-  const c1 = 1.70158, c3 = c1 + 1;
-  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+  const c1 = 1.70158, c3 = c1+1;
+  return 1 + c3*Math.pow(t-1,3) + c1*Math.pow(t-1,2);
 }
 
-// ── Pointer ───────────────────────────────────────────
-function cpos(e) {
-  const r = canvas.getBoundingClientRect();
-  return { x: e.clientX - r.left, y: e.clientY - r.top };
-}
+// ── Pointer ──
+function cpos(e) { const r=canvas.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; }
 
 function hitObj(x, y) {
-  const iW = img.naturalWidth  || img.width;
-  const iH = img.naturalHeight || img.height;
-  const baseW = Math.min(W, H) * 0.42;
-
-  for (let i = objs.length - 1; i >= 0; i--) {
-    const o = objs[i];
-    const dw = o.scale * baseW;
-    const dh = (iH / iW) * dw;
-    if (x >= o.x - dw/2 && x <= o.x + dw/2 &&
-        y >= o.y - dh/2 && y <= o.y + dh/2) return i;
+  const src  = useProcessed ? processedImg : img;
+  const iW   = src.width || src.naturalWidth;
+  const iH   = src.height || src.naturalHeight;
+  const baseW = Math.min(W,H)*0.45;
+  for (let i=objs.length-1; i>=0; i--) {
+    const o=objs[i]; const dw=o.scale*baseW; const dh=(iH/iW)*dw;
+    if (x>=o.x-dw/2 && x<=o.x+dw/2 && y>=o.y-dh/2 && y<=o.y+dh/2) return i;
   }
   return -1;
 }
@@ -590,115 +458,112 @@ function hitObj(x, y) {
 function onDown(e) {
   e.preventDefault();
   canvas.setPointerCapture(e.pointerId);
-  const p = cpos(e);
-  ptrs.set(e.pointerId, p);
+  const p = cpos(e); ptrs.set(e.pointerId, p);
 
   if (ptrs.size === 2) {
     drag = null;
-    const vals = [...ptrs.values()];
-    const cx = (vals[0].x + vals[1].x) / 2;
-    const cy = (vals[0].y + vals[1].y) / 2;
-    let idx = hitObj(cx, cy);
-    if (idx < 0) {
-      // Find nearest
-      let bd = Infinity;
-      objs.forEach((o, i) => {
-        const d = Math.hypot(o.x - cx, o.y - cy);
-        if (d < bd) { bd = d; idx = i; }
-      });
-    }
-    if (idx >= 0) {
-      const d = Math.hypot(vals[0].x - vals[1].x, vals[0].y - vals[1].y);
-      pinch = { idx, d0: d, s0: objs[idx].scale };
-    }
+    const v = [...ptrs.values()];
+    const cx=(v[0].x+v[1].x)/2, cy=(v[0].y+v[1].y)/2;
+    let idx = hitObj(cx,cy);
+    if (idx<0) { let bd=Infinity; objs.forEach((o,i)=>{ const d=Math.hypot(o.x-cx,o.y-cy); if(d<bd){bd=d;idx=i;} }); }
+    if (idx>=0) { const d=Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y); pinch={idx,d0:d,s0:objs[idx].scale}; }
     return;
   }
 
-  // Single pointer
   const idx = hitObj(p.x, p.y);
   const now = performance.now();
 
   if (idx >= 0) {
-    // Double-tap?
-    if (lastTap &&
-        now - lastTap.time < 320 &&
-        lastTap.idx === idx &&
-        Math.hypot(p.x - lastTap.x, p.y - lastTap.y) < 44) {
-      objs.splice(idx, 1);
-      drag = null; lastTap = null;
-      setHint('削除しました ✓', 1400);
-      return;
+    if (lastTap && now-lastTap.time<320 && lastTap.idx===idx && Math.hypot(p.x-lastTap.x,p.y-lastTap.y)<44) {
+      objs.splice(idx,1); drag=null; lastTap=null;
+      setHint('削除しました ✓', 1400); return;
     }
-    lastTap = { time: now, x: p.x, y: p.y, idx };
-    drag = { idx, ox: p.x - objs[idx].x, oy: p.y - objs[idx].y };
+    lastTap = {time:now, x:p.x, y:p.y, idx};
+    drag = {idx, ox:p.x-objs[idx].x, oy:p.y-objs[idx].y};
   } else {
-    // Place new
-    ripples.push({ x: p.x, y: p.y, born: now, dur: 600 });
-    objs.push({ x: p.x, y: p.y, scale: 1, born: now, bob: Math.random() * Math.PI * 2 });
-    const ni = objs.length - 1;
-    drag = { idx: ni, ox: 0, oy: 0 };
-    lastTap = { time: now, x: p.x, y: p.y, idx: ni };
-    if (objs.length === 1) setHint('ドラッグで移動 • ダブルタップで削除', 2500);
+    ripples.push({x:p.x, y:p.y, born:now});
+    objs.push({x:p.x, y:p.y, scale:1, born:now, bob:Math.random()*Math.PI*2});
+    const ni = objs.length-1;
+    drag = {idx:ni, ox:0, oy:0};
+    lastTap = {time:now, x:p.x, y:p.y, idx:ni};
+    if (objs.length===1) setHint('ドラッグで移動 • ダブルタップで削除', 2500);
   }
 }
 
 function onMove(e) {
   e.preventDefault();
-  const p = cpos(e);
-  ptrs.set(e.pointerId, p);
-
-  if (pinch && ptrs.size >= 2) {
-    const vals = [...ptrs.values()];
-    const d = Math.hypot(vals[0].x - vals[1].x, vals[0].y - vals[1].y);
-    objs[pinch.idx].scale = Math.max(0.15, Math.min(5, (d / pinch.d0) * pinch.s0));
-  } else if (drag && ptrs.size === 1) {
+  const p = cpos(e); ptrs.set(e.pointerId, p);
+  if (pinch && ptrs.size>=2) {
+    const v=[...ptrs.values()];
+    const d=Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y);
+    objs[pinch.idx].scale = Math.max(0.15, Math.min(5, (d/pinch.d0)*pinch.s0));
+  } else if (drag && ptrs.size===1) {
     objs[drag.idx].x = p.x - drag.ox;
     objs[drag.idx].y = p.y - drag.oy;
   }
 }
-
 function onUp(e) {
   ptrs.delete(e.pointerId);
-  if (ptrs.size < 2) pinch = null;
-  if (ptrs.size === 0) drag = null;
+  if (ptrs.size<2) pinch=null;
+  if (ptrs.size===0) drag=null;
 }
 
-// ── Controls ──────────────────────────────────────────
+// ── Controls ──
 function toggleBlend() {
-  useScreen = !useScreen;
+  useProcessed = !useProcessed;
   const btn = document.getElementById('blend-btn');
-  btn.textContent = useScreen ? '✨ 背景除去 ON' : '🖼 背景除去 OFF';
-  btn.classList.toggle('on', useScreen);
+  btn.textContent = useProcessed ? '✨ 背景除去' : '🖼 元の画像';
+  btn.classList.toggle('on', useProcessed);
 }
 
 function clearAll() {
-  objs = [];
-  ripples = [];
+  objs=[]; ripples=[];
   setHint('全て削除しました', 1500);
+}
+
+async function capture() {
+  // Flash effect
+  const flashEl = document.getElementById('flash');
+  flashEl.classList.add('go');
+  setTimeout(() => flashEl.classList.remove('go'), 160);
+
+  canvas.toBlob(async blob => {
+    const file = new File([blob], `ar-${Date.now()}.png`, {type:'image/png'});
+
+    // Try Web Share API (iOS / Android)
+    if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
+      try { await navigator.share({files:[file], title:'ARキャラクター'}); return; }
+      catch(e) { /* Cancelled or failed, fall through to download */ }
+    }
+
+    // Fallback: download
+    const url = URL.createObjectURL(blob);
+    const a   = document.createElement('a');
+    a.href = url; a.download = `ar-${Date.now()}.png`;
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 'image/png');
 }
 
 function goBack() {
   cancelAnimationFrame(raf);
-  if (video && video.srcObject) {
-    video.srcObject.getTracks().forEach(t => t.stop());
-    video.srcObject = null;
-  }
+  if (video?.srcObject) { video.srcObject.getTracks().forEach(t=>t.stop()); video.srcObject=null; }
   window.removeEventListener('resize', onResize);
   canvas.removeEventListener('pointerdown', onDown);
   canvas.removeEventListener('pointermove', onMove);
-  canvas.removeEventListener('pointerup', onUp);
+  canvas.removeEventListener('pointerup',   onUp);
   canvas.removeEventListener('pointercancel', onUp);
-  objs = []; ripples = []; ptrs.clear(); drag = pinch = lastTap = null;
+  objs=[]; ripples=[]; ptrs.clear(); drag=pinch=lastTap=null;
   document.getElementById('ar-screen').style.display = 'none';
+  document.getElementById('orb-wrap').style.display  = 'block';
   document.getElementById('upload-screen').style.display = 'flex';
 }
 
-// ── Hint ──────────────────────────────────────────────
 function setHint(text, dur) {
-  const el = document.getElementById('hint');
-  el.textContent = text;
-  el.style.opacity = '1';
+  const el=document.getElementById('hint');
+  el.textContent=text; el.style.opacity='1';
   clearTimeout(hintTimer);
-  hintTimer = setTimeout(() => { el.style.opacity = '0'; }, dur);
+  hintTimer=setTimeout(()=>{ el.style.opacity='0'; }, dur);
 }
 </script>
