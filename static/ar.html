@@ -49,9 +49,19 @@ body {
 #upload-screen {
   position:relative; z-index:1;
   min-height:100dvh;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:2rem 1.5rem; gap:1.5rem;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:space-between;
+  padding: max(env(safe-area-inset-top,0px),52px) 1.5rem max(env(safe-area-inset-bottom,0px),44px);
 }
+.upload-header {
+  display:flex; flex-direction:column; align-items:center;
+  gap:.7rem; text-align:center; width:100%;
+}
+.upload-middle {
+  display:flex; flex-direction:column; align-items:center;
+  gap:.75rem; width:100%;
+}
+.upload-footer { width:100%; }
 
 .logo-icon { font-size:2.8rem;line-height:1;filter:drop-shadow(0 0 16px var(--pink));animation:pulse-icon 3s ease-in-out infinite; }
 @keyframes pulse-icon { 0%,100%{filter:drop-shadow(0 0 10px var(--pink))} 50%{filter:drop-shadow(0 0 24px var(--lavender))} }
@@ -197,24 +207,35 @@ h1 {
 
 <!-- ── Upload Screen ── -->
 <div id="upload-screen">
-  <span class="logo-icon">🌸</span>
-  <h1>AR キャラクター</h1>
-  <p class="tagline">画像をアップロードして<br>カメラの世界にキャラを召喚しよう</p>
 
-  <div class="dz-card" id="dz">
-    <span class="dz-emoji">📷</span>
-    <p class="dz-text">キャラクター画像をここにドロップ<br>または</p>
-    <button class="btn-upload" onclick="document.getElementById('fi').click()">🖼️ 画像を選択</button>
+  <!-- 上部：タイトル -->
+  <div class="upload-header">
+    <span class="logo-icon">🌸</span>
+    <h1>AR キャラクター</h1>
+    <p class="tagline">画像をアップロードして<br>カメラの世界にキャラを召喚しよう</p>
   </div>
-  <input type="file" id="fi" accept="image/*" style="display:none">
-  <p id="err"></p>
 
-  <div class="tips">
-    <div class="tip"><strong>👆 タップ</strong>キャラを配置</div>
-    <div class="tip"><strong>✌️ ピンチ</strong>拡大・縮小</div>
-    <div class="tip"><strong>👋 ドラッグ</strong>位置を移動</div>
-    <div class="tip"><strong>💥 2回タップ</strong>削除</div>
+  <!-- 中央：ドロップゾーン -->
+  <div class="upload-middle">
+    <div class="dz-card" id="dz">
+      <span class="dz-emoji">📷</span>
+      <p class="dz-text">キャラクター画像をここにドロップ<br>または</p>
+      <button class="btn-upload" onclick="document.getElementById('fi').click()">🖼️ 画像を選択</button>
+    </div>
+    <input type="file" id="fi" accept="image/*" style="display:none">
+    <p id="err"></p>
   </div>
+
+  <!-- 下部：操作ヒント -->
+  <div class="upload-footer">
+    <div class="tips">
+      <div class="tip"><strong>👆 タップ</strong>キャラを配置</div>
+      <div class="tip"><strong>✌️ ピンチ</strong>拡大・縮小</div>
+      <div class="tip"><strong>👋 ドラッグ</strong>位置を移動</div>
+      <div class="tip"><strong>💥 2回タップ</strong>削除</div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ── AR Screen ── -->
