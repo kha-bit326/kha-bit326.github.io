@@ -215,6 +215,36 @@ h1 {
   transition:opacity .08s;
 }
 #flash.go { opacity:.85; }
+
+/* 撮影プレビューモーダル */
+#capture-modal {
+  display:none; position:fixed; inset:0; z-index:200;
+  background:rgba(0,0,0,0.93);
+  flex-direction:column; align-items:center; justify-content:center;
+  padding:1.5rem;
+  gap:1.2rem;
+}
+#capture-modal.open { display:flex; }
+#capture-img {
+  max-width:100%; max-height:62dvh;
+  border-radius:18px; object-fit:contain;
+  box-shadow:0 8px 40px rgba(0,0,0,.6);
+}
+#capture-hint {
+  font-size:1.05rem; color:rgba(255,255,255,.75);
+  text-align:center; line-height:1.6;
+}
+#capture-hint strong { color:#fff; display:block; font-size:1.15rem; margin-bottom:.3rem; }
+#capture-close {
+  width:100%; height:66px; border-radius:33px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff; font-size:1.15rem; font-family:inherit; font-weight:600;
+  cursor:pointer;
+  transition:background .15s, transform .1s;
+  -webkit-tap-highlight-color:transparent;
+}
+#capture-close:active { background:rgba(255,255,255,.22); transform:scale(.97); }
 </style>
 
 <!-- Ambient orbs (upload screen only) -->
@@ -274,6 +304,13 @@ h1 {
     <button class="ar-btn" id="shutter"   onclick="capture()">📸 撮影する</button>
     <button class="ar-btn on" id="blend-btn" onclick="toggleBlend()">✨ 背景除去 ON</button>
     <button class="ar-btn" id="back-btn"  onclick="goBack()">← 戻る</button>
+  </div>
+
+  <!-- 撮影プレビューモーダル -->
+  <div id="capture-modal">
+    <img id="capture-img" alt="撮影結果">
+    <p id="capture-hint"><strong>📥 長押しで写真に保存</strong>画像を長押し →「写真に追加」を選択</p>
+    <button id="capture-close" onclick="closeCaptureModal()">✕ 閉じてARに戻る</button>
   </div>
 </div>
 
@@ -552,29 +589,30 @@ function clearAll() {
   setHint('全て削除しました', 1500);
 }
 
-async function capture() {
-  // Flash effect
+let captureUrl = null;
+
+function capture() {
+  // フラッシュ
   const flashEl = document.getElementById('flash');
   flashEl.classList.add('go');
-  setTimeout(() => flashEl.classList.remove('go'), 160);
+  setTimeout(() => flashEl.classList.remove('go'), 180);
 
-  canvas.toBlob(async blob => {
-    const file = new File([blob], `ar-${Date.now()}.png`, {type:'image/png'});
+  canvas.toBlob(blob => {
+    if (!blob) return;
 
-    // Try Web Share API (iOS / Android)
-    if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
-      try { await navigator.share({files:[file], title:'ARキャラクター'}); return; }
-      catch(e) { /* Cancelled or failed, fall through to download */ }
-    }
+    // 前の blob URL を解放
+    if (captureUrl) URL.revokeObjectURL(captureUrl);
+    captureUrl = URL.createObjectURL(blob);
 
-    // Fallback: download
-    const url = URL.createObjectURL(blob);
-    const a   = document.createElement('a');
-    a.href = url; a.download = `ar-${Date.now()}.png`;
-    document.body.appendChild(a); a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    const captureImg = document.getElementById('capture-img');
+    captureImg.src = captureUrl;
+
+    document.getElementById('capture-modal').classList.add('open');
   }, 'image/png');
+}
+
+function closeCaptureModal() {
+  document.getElementById('capture-modal').classList.remove('open');
 }
 
 function goBack() {
